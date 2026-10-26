@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Entregable - Taller Datos Abiertos de Colombia (Flutter)</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 20mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+    .header {
+      border-bottom: 3px solid #1e3a8a;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background-color: #fef3c7;
+      color: #b45309;
+      margin-bottom: 10px;
+    }
+    h1 {
+      color: #1e3a8a;
+      margin: 5px 0 10px 0;
+      font-size: 26px;
+    }
+    h2 {
+      color: #1e3a8a;
+      font-size: 18px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 25px;
+    }
+    .meta-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .meta-item {
+      display: flex;
+      margin-bottom: 6px;
+    }
+    .meta-label {
+      width: 180px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .meta-value {
+      flex: 1;
+      font-weight: 500;
+      color: #0f172a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+    }
+    code {
+      background-color: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 12px;
+      color: #0f172a;
+    }
+    .card {
+      background-color: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 4px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background-color: #e0e7ff;
+      color: #3730a3;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">🇨🇴 TALLER DE DESARROLLO MÓVIL</div>
+    <h1>Datos Abiertos de Colombia (Flutter)</h1>
+    <div>Informe de Entrega Técnica y Repositorio</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-item">
+      <div class="meta-label">Estudiante / Autor:</div>
+      <div class="meta-value">Samuel Rincón</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Institución:</div>
+      <div class="meta-value">UCEVA - Unidad Central del Valle del Cauca</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Repositorio GitHub:</div>
+      <div class="meta-value"><a href="https://github.com/Sarincon508/taller_datos_abiertos">https://github.com/Sarincon508/taller_datos_abiertos</a></div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Ramas del Proyecto:</div>
+      <div class="meta-value"><code>main</code> (producción), <code>dev</code> (integración), <code>feature/taller_api_colombia</code> (desarrollo)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">API Utilizada:</div>
+      <div class="meta-value"><a href="https://api-colombia.com/">https://api-colombia.com/</a> (v1)</div>
+    </div>
+  </div>
+
+  <h2>1. Resumen y Objetivos del Proyecto</h2>
+  <p>
+    El objetivo de este proyecto es el desarrollo de una aplicación móvil en Flutter que consume datos públicos de la República de Colombia a través de <strong>API Colombia</strong>. La aplicación implementa navegación declarativa mediante <code>go_router</code>, arquitectura por capas (configuración, modelos, servicios, temas, vistas y widgets), manejo de estados de ciclo de vida de peticiones (Cargando, Éxito, Error con reintento, y Búsqueda vacía), variables de entorno (.env) y un flujo de trabajo bajo GitFlow.
+  </p>
+
+  <h2>2. Endpoints Implementados (4 Mínimos Requeridos)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Endpoint</th>
+        <th>Ruta API Base</th>
+        <th>Ruta API Detalle</th>
+        <th>Descripción y Datos Destacados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Departamentos</strong></td>
+        <td><code>/api/v1/Department</code></td>
+        <td><code>/api/v1/Department/{id}</code></td>
+        <td>División político-administrativa: capitales, población, superficie, municipios y prefijo telefónico.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Atracciones Turísticas</strong></td>
+        <td><code>/api/v1/TouristicAttraction</code></td>
+        <td><code>/api/v1/TouristicAttraction/{id}</code></td>
+        <td>Patrimonio nacional: parques, reservas, museos, galería de imágenes y coordenadas GPS.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Presidentes</strong></td>
+        <td><code>/api/v1/President</code></td>
+        <td><code>/api/v1/President/{id}</code></td>
+        <td>Mandatarios de la República: periodos presidenciales, partidos políticos, retratos y biografías.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Platos Típicos</strong></td>
+        <td><code>/api/v1/TypicalDish</code></td>
+        <td><code>/api/v1/TypicalDish/{id}</code></td>
+        <td>Gastronomía colombiana: imágenes, ingredientes principales y departamento de procedencia.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Estructura y Arquitectura del Código</h2>
+  <div class="card">
+    <div class="card-title">lib/config/</div>
+    <div>Gestión de variables de entorno mediante <code>Environment</code> y <code>flutter_dotenv</code> (URL base, timeouts, nombres).</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/models/</div>
+    <div>Modelos de datos fuertemente tipados con métodos serializadores <code>fromJson</code> y <code>toJson</code> para cada entidad y sus submodelos.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/services/</div>
+    <div>Cliente HTTP centralizado <code>ApiColombiaService</code> con manejo de <code>ApiException</code>, validación de códigos de estado HTTP (200, 404, 500), timeouts y decodificación UTF-8.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/routes/</div>
+    <div>Configuración de rutas con <code>GoRouter</code>, subrutas para maestro-detalle, paso de parámetros de ruta (<code>:id</code>) y objetos por <code>extra</code>.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/themes/</div>
+    <div>Diseño visual moderno en Material 3 con esquemas claro y oscuro basados en la identidad visual de Colombia.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/views/</div>
+    <div>Pantallas principales: <code>DashboardView</code>, vistas de listado con filtrado en tiempo real y vistas de detalle exhaustivas.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">lib/widgets/</div>
+    <div>Componentes modulares reutilizables: <code>LoadingView</code>, <code>ErrorView</code>, <code>EmptyView</code>, <code>CustomSearchBar</code>, <code>ImageWithFallback</code>, <code>InfoChip</code> y <code>DashboardCard</code>.</div>
+  </div>
+
+  <h2>4. Paquetes Implementados</h2>
+  <ul>
+    <li><code>http</code> (v1.6.0): Peticiones cliente-servidor a API Colombia.</li>
+    <li><code>go_router</code> (v18.1.1): Enrutamiento declarativo y navegación maestro-detalle.</li>
+    <li><code>flutter_dotenv</code> (v6.0.1): Carga segura de variables de configuración.</li>
+    <li><code>intl</code> (v0.20.3): Formateo de fechas y números.</li>
+  </ul>
+
+  <h2>5. Flujo GitFlow y Commits</h2>
+  <p>
+    El repositorio cuenta con la estructura de ramas requerida:
+  </p>
+  <ul>
+    <li><code>main</code>: Rama de versión estable final.</li>
+    <li><code>dev</code>: Rama de integración de características.</li>
+    <li><code>feature/taller_api_colombia</code>: Rama de desarrollo con commits atómicos (convenciones <code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>test:</code>).</li>
+  </ul>
+
+</body>
+</html>

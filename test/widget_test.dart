@@ -1,30 +1,86 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:taller_datos_abiertos/main.dart';
+import 'package:taller_datos_abiertos/models/department_model.dart';
+import 'package:taller_datos_abiertos/models/president_model.dart';
+import 'package:taller_datos_abiertos/models/touristic_attraction_model.dart';
+import 'package:taller_datos_abiertos/models/typical_dish_model.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('Models Unit Tests', () {
+    test('Department fromJson and toJson', () {
+      final json = {
+        'id': 1,
+        'name': 'Amazonas',
+        'description': 'Departamento del sur de Colombia',
+        'cityCapitalId': 1,
+        'municipalities': 2,
+        'surface': 109665,
+        'population': 76589,
+        'phonePrefix': '8',
+        'cityCapital': {
+          'id': 1,
+          'name': 'Leticia',
+          'description': 'Capital de Amazonas',
+          'surface': 5968,
+          'population': 42280,
+          'postalCode': '910001',
+        },
+      };
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      final dep = Department.fromJson(json);
+      expect(dep.id, 1);
+      expect(dep.name, 'Amazonas');
+      expect(dep.cityCapital?.name, 'Leticia');
+      expect(dep.toJson()['name'], 'Amazonas');
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('President fromJson and helpers', () {
+      final json = {
+        'id': 1,
+        'name': 'Rafael',
+        'lastName': 'Núñez',
+        'startPeriodDate': '1887-06-04',
+        'endPeriodDate': '1888-08-07',
+        'politicalParty': 'Partido Nacional',
+        'description': 'Presidente histórico',
+      };
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      final pres = President.fromJson(json);
+      expect(pres.fullName, 'Rafael Núñez');
+      expect(pres.periodDisplay, '1887 – 1888');
+      expect(pres.politicalParty, 'Partido Nacional');
+    });
+
+    test('TouristicAttraction fromJson', () {
+      final json = {
+        'id': 10,
+        'name': 'Museo del Oro',
+        'description': 'Museo arqueológico en Bogotá',
+        'images': ['https://example.com/oro.jpg'],
+        'latitude': '4.6018',
+        'longitude': '-74.0721',
+        'city': {'id': 1, 'name': 'Bogotá'},
+      };
+
+      final attraction = TouristicAttraction.fromJson(json);
+      expect(attraction.name, 'Museo del Oro');
+      expect(attraction.primaryImage, 'https://example.com/oro.jpg');
+      expect(attraction.city?.name, 'Bogotá');
+    });
+
+    test('TypicalDish fromJson and ingredientsList', () {
+      final json = {
+        'id': 1,
+        'name': 'Bandeja Paisa',
+        'description': 'Plato típico antioqueño',
+        'ingredients': 'Frijoles, Arroz, Huevo, Chicharrón, Arepa, Aguacate',
+        'department': {'id': 2, 'name': 'Antioquia'},
+      };
+
+      final dish = TypicalDish.fromJson(json);
+      expect(dish.name, 'Bandeja Paisa');
+      expect(dish.ingredientsList.length, 6);
+      expect(dish.ingredientsList.first, 'Frijoles');
+      expect(dish.department?.name, 'Antioquia');
+    });
   });
 }
